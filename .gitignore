@@ -1,0 +1,33 @@
+# macOS
+.DS_Store
+
+# Xcode 빌드 산출물
+build/
+build-sim/
+DerivedData/
+*.xcuserstate
+xcuserdata/
+*.xcodeproj/xcuserdata/
+*.xcodeproj/project.xcworkspace/xcuserdata/
+
+# Swift Package Manager
+.build/
+.swiftpm/
+Package.resolved
+*.xcodeproj/project.xcworkspace/xcshareddata/swiftpm/Package.resolved
+
+# Generated
+*.hmap
+*.ipa
+*.dSYM
+*.dSYM.zip
+
+# CocoaPods / Carthage (미사용 방어)
+Pods/
+Podfile.lock
+Carthage/Build/
+
+# IDE
+.idea/
+.vscode/
+*.swp
