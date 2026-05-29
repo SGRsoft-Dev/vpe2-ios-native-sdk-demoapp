@@ -59,37 +59,23 @@ struct BasicPlayerView: View {
     // MARK: - State
 
     @StateObject private var controller: VPEPlayerController
-    private let playlistItems: [PlaylistItem]
 
     @State private var platform: Platform = .pub
     @State private var stage: Stage = .real
     @State private var licenseKey: String = "44fcf7432b280107d7d18148ac24dd99"
     @State private var showingSettings: Bool = false
-    @State private var parseError: String?
 
-    // MARK: - Init: JSON 디코드 + controller 셋업
+    // MARK: - Init — 옵션 JSON + 라이선스를 SDK 편의 생성자 하나로 셋업.
+    //          JSON 디코드/머지/라이선스/풀스크린은 모두 SDK 내부 처리.
 
     init() {
-        let input: PlayerInput
-        var parseError: String?
-        do {
-            input = try PlayerInput.from(jsonString: Self.optionsJSON)
-        } catch {
-            input = PlayerInput(playlist: [], options: PlayerOptions())
-            parseError = String(describing: error)
-        }
-        // controller에 라이선스 설정만 주입 → VPEPlayerView가 onAppear에서 자동 체크.
-        // 호스트는 VPEPlayerView만 배치하면 라이선스/풀스크린이 SDK 내부에서 처리됨.
-        let c = VPEPlayerController(scopeID: "demo-main", options: input.options)
-        if let dict = PlayerInput.normalizedDict(jsonString: Self.optionsJSON) {
-            c.configureLicense(
-                accessKey: "44fcf7432b280107d7d18148ac24dd99",
-                platform: "pub", stage: "real", localInput: dict
-            )
-        }
-        _controller = StateObject(wrappedValue: c)
-        playlistItems = input.playlist
-        _parseError = State(initialValue: parseError)
+        _controller = StateObject(wrappedValue: VPEPlayerController(
+            scopeID: "demo-main",
+            json: Self.optionsJSON,
+            accessKey: "44fcf7432b280107d7d18148ac24dd99",
+            platform: "pub",
+            stage: "real"
+        ))
     }
 
     // MARK: - Body
@@ -107,9 +93,6 @@ struct BasicPlayerView: View {
                         .background(Color.black)
 
                     VStack(spacing: 16) {
-                        if let err = parseError {
-                            errorCard(err)
-                        }
                         appInfoCard
                         jsonInfoCard
                         configurationCard
@@ -148,15 +131,6 @@ struct BasicPlayerView: View {
                 appliedRow("ui", controller.options.ui.rawValue)
                 appliedRow("watermark", controller.options.visibleWatermark ? "on" : "off")
             }
-        }
-    }
-
-    private func errorCard(_ err: String) -> some View {
-        DemoCard(icon: "exclamationmark.triangle.fill", title: "JSON 파싱 오류") {
-            Text(err)
-                .font(.system(size: 12, design: .monospaced))
-                .foregroundStyle(.red)
-                .frame(maxWidth: .infinity, alignment: .leading)
         }
     }
 
