@@ -66,7 +66,6 @@ struct BasicPlayerView: View {
     @State private var licenseKey: String = "44fcf7432b280107d7d18148ac24dd99"
     @State private var showingSettings: Bool = false
     @State private var parseError: String?
-    @State private var didInitialize: Bool = false   // onAppear 자동 라이선스 체크 1회 가드
 
     // MARK: - Init: JSON 디코드 + controller 셋업
 
@@ -79,10 +78,16 @@ struct BasicPlayerView: View {
             input = PlayerInput(playlist: [], options: PlayerOptions())
             parseError = String(describing: error)
         }
-        _controller = StateObject(wrappedValue: VPEPlayerController(
-            scopeID: "demo-main",
-            options: input.options
-        ))
+        // controller에 라이선스 설정만 주입 → VPEPlayerView가 onAppear에서 자동 체크.
+        // 호스트는 VPEPlayerView만 배치하면 라이선스/풀스크린이 SDK 내부에서 처리됨.
+        let c = VPEPlayerController(scopeID: "demo-main", options: input.options)
+        if let dict = PlayerInput.normalizedDict(jsonString: Self.optionsJSON) {
+            c.configureLicense(
+                accessKey: "44fcf7432b280107d7d18148ac24dd99",
+                platform: "pub", stage: "real", localInput: dict
+            )
+        }
+        _controller = StateObject(wrappedValue: c)
         playlistItems = input.playlist
         _parseError = State(initialValue: parseError)
     }
@@ -90,52 +95,35 @@ struct BasicPlayerView: View {
     // MARK: - Body
 
     var body: some View {
-        ZStack {
-            // 메인 콘텐츠 (인라인 플레이어 + 카드)
-            ZStack(alignment: .top) {
-                DemoTheme.appBackground.ignoresSafeArea()
+        // 호스트는 VPEPlayerView만 배치 — 라이선스 체크/풀스크린은 SDK 내부에서 처리.
+        ZStack(alignment: .top) {
+            DemoTheme.appBackground.ignoresSafeArea()
 
-                ScrollView {
-                    VStack(spacing: 0) {
-                        VPEPlayerView(controller: controller)
-                            .frame(maxWidth: .infinity)   // 종횡비는 SDK가 option.aspectRatio로 결정
-                            .clipped()
-                            .background(Color.black)
+            ScrollView {
+                VStack(spacing: 0) {
+                    VPEPlayerView(controller: controller)
+                        .frame(maxWidth: .infinity)   // 종횡비는 SDK가 option.aspectRatio로 결정
+                        .clipped()
+                        .background(Color.black)
 
-                        VStack(spacing: 16) {
-                            if let err = parseError {
-                                errorCard(err)
-                            }
-                            appInfoCard
-                            jsonInfoCard
-                            configurationCard
-                            playerControlsCard
+                    VStack(spacing: 16) {
+                        if let err = parseError {
+                            errorCard(err)
                         }
-                        .padding(.horizontal, 16)
-                        .padding(.top, 20)
-                        .padding(.bottom, 32)
+                        appInfoCard
+                        jsonInfoCard
+                        configurationCard
+                        playerControlsCard
                     }
+                    .padding(.horizontal, 16)
+                    .padding(.top, 20)
+                    .padding(.bottom, 32)
                 }
-                .scrollIndicators(.hidden)
             }
-
-            // 풀스크린 overlay — 같은 ZStack subtree라 host view가 reparent됨 (재생성 X)
-            // .ignoresSafeArea는 컨테이너 내부(배경/비디오)에서만 적용 → 컨트롤은 safe area 안
-            if controller.isFullscreen {
-                VPEFullscreenContainer(controller: controller)
-                    .zIndex(999)
-            }
+            .scrollIndicators(.hidden)
         }
         .navigationTitle("기본 플레이어 구성")
         .navigationBarTitleDisplayMode(.inline)
-        .toolbar(controller.isFullscreen ? .hidden : .visible, for: .navigationBar)
-        .onAppear {
-            // 앱 진입 시 자동 라이선스 체크 → 옵션 머지 → playlist 로드 (한 번만).
-            // 실패/비-pay 시 에러 오버레이로 재생 차단.
-            guard !didInitialize else { return }
-            didInitialize = true
-            applyLicense()
-        }
         .sheet(isPresented: $showingSettings) {
             SettingModal(controller: controller)
                 .presentationDetents([.height(360), .medium])
