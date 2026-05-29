@@ -213,7 +213,13 @@ struct BasicPlayerView: View {
                     DemoFieldWithAction(
                         text: $licenseKey,
                         actionLabel: "적용",
-                        onAction: { applyLicense() }
+                        onAction: {
+                            controller.applyLicense(
+                                accessKey: licenseKey,
+                                platform: platform.rawValue,
+                                stage: stage.rawValue
+                            )
+                        }
                     )
                 }
             }
@@ -255,22 +261,6 @@ struct BasicPlayerView: View {
                     controller.enterFullscreen()
                 }
             }
-        }
-    }
-
-    // MARK: - License
-
-    /// "적용" 버튼 → 라이선스 체크 + 옵션 머지 + 적용 (web VpeCore.initialize 흐름).
-    /// 비-pay 티어/인증 실패 시 에러 오버레이가 표시되며 재생이 차단됩니다.
-    private func applyLicense() {
-        guard let dict = PlayerInput.normalizedDict(jsonString: Self.optionsJSON) else { return }
-        Task {
-            await controller.initialize(
-                accessKey: licenseKey,
-                platform: platform.rawValue,
-                stage: stage.rawValue,
-                localInput: dict
-            )
         }
     }
 
