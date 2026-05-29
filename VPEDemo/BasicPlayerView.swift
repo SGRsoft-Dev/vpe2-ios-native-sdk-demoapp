@@ -50,36 +50,9 @@ struct BasicPlayerView: View {
         
       ],
       "autostart": true,
-      "muted": false,
-      "aspectRatio": "16/9",
-      "objectFit": "contain",
-      "controls": true,
-      "keyboardShortcut": true,
-      "seekingPreview": true,
-      "touchGestures": true,
-      "startMutedInfoNotVisible": false,
-      "lang": "auto",
-      "ui": "auto",
-      "progressBarColor": "#00ff11",
-      "controlActiveTime": 3000,
-      "autoPause": false,
-      "repeat": false,
-      "lowLatencyMode": false,
-      "iosFullscreenNativeMode": true,
-      "descriptionNotVisible": false,
-      "visibleWatermark": false,
-      "autoPIP":true,
-      "controlBtn": {
-        "play": true,
-        "fullscreen": true,
-        "progressBar": true,
-        "volume": true,
-        "times": true,
-        "pictureInPicture": true,
-        "setting": true,
-        "subtitle": true
-      },
-      "layout": null
+      "autoPause":false,
+      "allowsPictureInPicture":true,
+      "enableNowPlayingPlaybackState":true,
     }
     """
 
@@ -90,9 +63,10 @@ struct BasicPlayerView: View {
 
     @State private var platform: Platform = .pub
     @State private var stage: Stage = .real
-    @State private var licenseKey: String = "baebffcc0054efdc485877cff0e483b1"
+    @State private var licenseKey: String = "44fcf7432b280107d7d18148ac24dd99"
     @State private var showingSettings: Bool = false
     @State private var parseError: String?
+    @State private var didInitialize: Bool = false   // onAppear 자동 라이선스 체크 1회 가드
 
     // MARK: - Init: JSON 디코드 + controller 셋업
 
@@ -124,8 +98,7 @@ struct BasicPlayerView: View {
                 ScrollView {
                     VStack(spacing: 0) {
                         VPEPlayerView(controller: controller)
-                            .aspectRatio(16/9, contentMode: .fill)
-                            .frame(maxWidth: .infinity)
+                            .frame(maxWidth: .infinity)   // 종횡비는 SDK가 option.aspectRatio로 결정
                             .clipped()
                             .background(Color.black)
 
@@ -133,8 +106,8 @@ struct BasicPlayerView: View {
                             if let err = parseError {
                                 errorCard(err)
                             }
-                            jsonInfoCard
                             appInfoCard
+                            jsonInfoCard
                             configurationCard
                             playerControlsCard
                         }
@@ -157,7 +130,11 @@ struct BasicPlayerView: View {
         .navigationBarTitleDisplayMode(.inline)
         .toolbar(controller.isFullscreen ? .hidden : .visible, for: .navigationBar)
         .onAppear {
-            controller.loadPlaylist(playlistItems)
+            // 앱 진입 시 자동 라이선스 체크 → 옵션 머지 → playlist 로드 (한 번만).
+            // 실패/비-pay 시 에러 오버레이로 재생 차단.
+            guard !didInitialize else { return }
+            didInitialize = true
+            applyLicense()
         }
         .sheet(isPresented: $showingSettings) {
             SettingModal(controller: controller)
