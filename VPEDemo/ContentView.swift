@@ -37,10 +37,11 @@ private struct HomeContent: View {
                                 subtitle: "playurl API에서 옵션 JSON 수신 → 재생",
                                 destination: { RemoteApiPlayerView() }
                             )
-                            DisabledMenuRow(
+                            MenuRow(
                                 icon: "lock.shield.fill",
-                                title: "FairPlay DRM",
-                                subtitle: "(준비 중)"
+                                title: "원클릭 멀티 DRM",
+                                subtitle: "drmTest API · FairPlay(HLS) DRM 재생",
+                                destination: { DrmTestPlayerView() }
                             )
                             DisabledMenuRow(
                                 icon: "rectangle.stack.fill",
