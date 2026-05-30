@@ -43,6 +43,7 @@ struct BasicPlayerView: View {
       "autoPause": false,
       "allowsPictureInPicture": true,
       "enableNowPlayingPlaybackState": true,
+      "screenRecordingPrevention": true,
     }
     """
 

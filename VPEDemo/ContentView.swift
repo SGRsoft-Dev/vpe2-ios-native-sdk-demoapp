@@ -31,6 +31,12 @@ private struct HomeContent: View {
                                 subtitle: "NCP HLS · 옵션/이벤트 카드 · 설정 모달",
                                 destination: { BasicPlayerView() }
                             )
+                            MenuRow(
+                                icon: "network",
+                                title: "원격 API 데모",
+                                subtitle: "playurl API에서 옵션 JSON 수신 → 재생",
+                                destination: { RemoteApiPlayerView() }
+                            )
                             DisabledMenuRow(
                                 icon: "lock.shield.fill",
                                 title: "FairPlay DRM",
