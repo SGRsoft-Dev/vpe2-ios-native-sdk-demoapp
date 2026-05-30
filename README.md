@@ -31,18 +31,6 @@ https://github.com/SGRsoft-Dev/vpe2-ios-native-sdk.git
 
 > 이 패키지는 컴파일된 `VPEPlayer.xcframework`(iOS device + simulator)를 GitHub Release로 배포합니다(소스 비공개).
 
-### 로컬 SDK 소스로 개발할 때 (모노레포)
-
-SDK 소스를 함께 수정하려면 로컬 패키지로 전환할 수 있습니다.
-
-```
-vpe2-ios/
-├── sdk/        ← devtools.ncloud.com/2889160/vpe2-ios-native-sdk.git (소스)
-└── demoapp/    ← 이 저장소
-```
-
-Xcode → Package Dependencies 에서 원격 패키지를 제거하고 로컬 `../sdk` 를 추가하면 됩니다.
-
 ## 실행
 
 ```bash
