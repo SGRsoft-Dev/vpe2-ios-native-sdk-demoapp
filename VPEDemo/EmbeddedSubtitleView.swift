@@ -54,7 +54,7 @@ struct EmbeddedSubtitleView: View {
 
     private var noteCard: some View {
         DemoCard(icon: "info.circle.fill", title: "동작") {
-            Text("매니페스트에 포함된 자막 트랙은 AVPlayer가 비디오 위에 직접 렌더하며, 컨트롤바의 자막 버튼/설정에서 선택할 수 있습니다. SDK 정책에 따라 기본은 OFF이며, 외부 사이드카 자막과 동일한 자막 목록에 함께 나타납니다. (시뮬레이터에서는 내장 자막 렌더가 제한될 수 있어 실기기 확인을 권장합니다.)")
+            Text("매니페스트에 포함된 자막 트랙은 AVPlayer가 비디오 위에 직접 렌더하며, 컨트롤바의 자막 버튼/설정에서 선택할 수 있습니다. 텍스트 스타일은 iOS 접근성 자막 설정(설정 > 손쉬운 사용 > 자막 및 캡션 > 스타일)을 따릅니다. SDK 정책에 따라 기본은 OFF이며, 외부 사이드카 자막과 동일한 목록에 함께 나타납니다. (시뮬레이터에서는 내장 자막 렌더가 제한될 수 있어 실기기 확인을 권장합니다.)")
                 .font(.system(size: 12))
                 .foregroundStyle(DemoTheme.textSecondary)
                 .frame(maxWidth: .infinity, alignment: .leading)
