@@ -7,9 +7,7 @@ import VPEPlayer
 /// (자막 표시 스타일은 iOS 접근성 자막 스타일을 따름)
 struct VttSubtitleView: View {
     private let accessKey = "44fcf7432b280107d7d18148ac24dd99"
-    // Sintel(공개 테스트) HLS + 영문/독일어/스페인어 VTT 자막
-    private let streamURL = "https://test-streams.mux.dev/x36xhzz/x36xhzz.m3u8"
-    private let vttBase = "https://iandevlin.github.io/mdn/video-player-with-captions/subtitles/vtt"
+    private let streamURL = "https://m4qgahqg2249.edge.naverncp.com/hls/a4oif2oPHP-HlGGWOFm29A__/endpoint/sample/221027_NAVER_Cloud_intro_Long_ver_AVC_,FHD_2Pass_30fps,HD_2Pass_30fps,SD_2Pass_30fps,.mp4.smil/master.m3u8"
 
     private var options: [String: Any] {
         [
@@ -20,11 +18,10 @@ struct VttSubtitleView: View {
             "playlist": [
                 [
                     "file": streamURL,
-                    "description": ["title": "VTT 자막 데모", "profile_name": "Sintel"],
+                    "description": ["title": "VTT 자막 데모", "profile_name": "네이버클라우드"],
                     "vtt": [
-                        ["id": "en", "file": "\(vttBase)/sintel-en.vtt", "label": "English", "default": true],
-                        ["id": "de", "file": "\(vttBase)/sintel-de.vtt", "label": "Deutsch"],
-                        ["id": "es", "file": "\(vttBase)/sintel-es.vtt", "label": "Español"]
+                        ["id": "ko", "file": "https://player.vpe.naverncp.com/vtt/ncp_overview_script_kr_v2.vtt", "label": "한국어", "default": true],
+                        ["id": "en", "file": "https://player.vpe.naverncp.com/vtt/ncp_overview_script_en_v2.vtt", "label": "English"]
                     ]
                 ]
             ]
@@ -53,7 +50,7 @@ struct VttSubtitleView: View {
         DemoCard(icon: "captions.bubble.fill", title: "VTT 자막") {
             VStack(alignment: .leading, spacing: 8) {
                 infoRow("형식", "WebVTT (.vtt) 사이드카")
-                infoRow("트랙", "English(기본) · Deutsch · Español")
+                infoRow("트랙", "한국어(기본) · English")
                 infoRow("옵션 키", "playlist[].vtt: [{ id, file, label, default }]")
             }
         }
