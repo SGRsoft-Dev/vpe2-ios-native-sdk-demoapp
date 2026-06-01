@@ -7,7 +7,7 @@ import VPEPlayer
 /// (자막 표시 스타일은 iOS 접근성 자막 스타일을 따름)
 struct VttSubtitleView: View {
     private let accessKey = "44fcf7432b280107d7d18148ac24dd99"
-    private let streamURL = "https://m4qgahqg2249.edge.naverncp.com/hls/a4oif2oPHP-HlGGWOFm29A__/endpoint/sample/221027_NAVER_Cloud_intro_Long_ver_AVC_,FHD_2Pass_30fps,HD_2Pass_30fps,SD_2Pass_30fps,.mp4.smil/master.m3u8"
+    private let streamURL = "https://u6dwfh2w5883.edge.naverncp.com/hls/-EQTX8kk3dFTfezHSE0rcg__/vodstation/vod-abr-test/j5IXBfIJ83893893_1080p_,AVC_SD_1Pass_30fps_1,AVC_HD_1Pass_30fps,AVC_FHD_1Pass_30fps,.mp4.smil/master.m3u8"
 
     private var options: [String: Any] {
         [
