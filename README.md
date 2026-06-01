@@ -1,35 +1,32 @@
 # VPE iOS Native SDK — Demo App
 
 네이버 클라우드 플랫폼 **VPE iOS 네이티브 플레이어 SDK(`VPEPlayer`)** 의 데모 앱입니다.
-web `vpe-react-sdk` 의 옵션 JSON 스키마를 그대로 받아 iOS(AVFoundation)에서 재생합니다.
+웹 `vpe-react-sdk` 의 옵션 스키마(딕셔너리/JSON)를 그대로 받아 iOS(AVFoundation)에서 재생합니다.
 
 - SDK(바이너리 배포): `https://github.com/SGRsoft-Dev/vpe2-ios-native-sdk.git`
 - 번들 ID: `com.sgrsoft.vpe.native.ios`
-- SDK 버전: `1.0.0`
+- SDK 버전: **1.0.4**
 
 ## 요구 사항
 
-- Xcode 15+
-- iOS 16.0+
-- Swift 5.9+
+- Xcode 15+ / iOS 16.0+ / Swift 5.9+
 
-## SDK 의존성 (바이너리 SwiftPM)
+## SDK 참조 방식 (바이너리 기본 / 로컬 선택)
 
-이 데모는 SDK를 **공개 GitHub의 바이너리 Swift Package(XCFramework)** 로 참조합니다.
-별도 소스 체크아웃 없이 **데모앱 단독 clone만으로 빌드**됩니다.
+기본은 **공개 GitHub의 바이너리 Swift Package(XCFramework, 1.0.4)** 참조 → 데모앱 단독 clone만으로 빌드됩니다.
 
 ```swift
-// Package Dependencies
-.package(url: "https://github.com/SGRsoft-Dev/vpe2-ios-native-sdk.git", from: "1.0.0")
+.package(url: "https://github.com/SGRsoft-Dev/vpe2-ios-native-sdk.git", from: "1.0.4")
 ```
 
-Xcode에서 추가하려면: **File ▸ Add Package Dependencies…** 에 아래 URL 입력 후 `VPEPlayer` 라이브러리 선택.
+SDK 소스를 함께 수정하며 개발하려면 로컬 `../sdk` 로 전환할 수 있습니다:
 
+```bash
+cp .local.env.example .local.env   # .local.env 존재 → 로컬(../sdk) 참조
+scripts/select-sdk.sh              # 모드에 맞게 pbxproj 패키지 참조 전환
+# 강제: scripts/select-sdk.sh local | remote
 ```
-https://github.com/SGRsoft-Dev/vpe2-ios-native-sdk.git
-```
-
-> 이 패키지는 컴파일된 `VPEPlayer.xcframework`(iOS device + simulator)를 GitHub Release로 배포합니다(소스 비공개).
+- `.local.env` 가 **있으면 로컬(`../sdk`)**, **없으면 바이너리 패키지**. `.local.env` 는 .gitignore 로 제외(커밋 기본값 = 바이너리).
 
 ## 실행
 
@@ -38,24 +35,26 @@ open VPEDemo.xcodeproj
 ```
 스킴 `VPEDemo` 선택 → 시뮬레이터 또는 실제 기기에서 ⌘R.
 
-> ⚠️ **FairPlay DRM 데모는 실기기에서만** 복호화/재생됩니다(시뮬레이터 불가).
+> ⚠️ **FairPlay DRM / PiP / 화면녹화방지 / Now Playing** 은 실기기에서만 정상 동작합니다(시뮬레이터 제한).
 
-## 데모 시나리오
+## 데모 시나리오 (홈 `ContentView`)
 
-홈(`ContentView`)에서 세 가지 시나리오로 진입합니다.
-
-### 1) 기본 플레이어 구성 (`BasicPlayerView`)
-- web SDK와 동일한 **옵션 JSON 그대로 실행** — 따옴표 없는 키 / 후행 콤마 / `//` 주석 등 느슨한(JSON5-ish) 문법 허용.
-- Configuration 카드에서 **platform / stage / accessKey** 입력 → "적용"으로 재구성(`.id` 재생성).
-- HLS(`.m3u8`) 재생, 플레이리스트(이전/다음 + **종료 시 다음 영상 자동재생**), 자막(VTT/SRT) 토글, 워터마크 등.
-
-### 2) 원격 API 데모 (`RemoteApiPlayerView`)
-- `https://vpe.sgrsoft.com/api/playurl?v=1` 에서 **옵션 JSON을 수신** → `VpePlayer` 에 그대로 주입해 재생.
-
-### 3) 원클릭 멀티 DRM (`DrmTestPlayerView`)
-- `https://vpe.sgrsoft.com/api/drmTest` 파싱 → **FairPlay(HLS) DRM** 재생.
-- NCP Multi-DRM(API Gateway) 인증 헤더(`x-ncp-*`, `x-drm-token`)를 cert/license 요청에 패스스루.
-- ⚠️ 실기기 전용.
+| 메뉴 | View | 설명 |
+|---|---|---|
+| 기본 플레이어 구성 | `BasicPlayerDictView` | 옵션을 **Swift 딕셔너리**로 직접 구성 |
+| 기본 플레이어 구성 (JSON) | `BasicPlayerView` | 옵션 **JSON 문자열**(web 스키마) + Configuration 카드 |
+| 원격 API 데모 | `RemoteApiPlayerView` | `playurl` API에서 옵션 JSON 수신 → 재생 |
+| 원클릭 멀티 DRM | `DrmTestPlayerView` | `drmTest` API → NCP FairPlay(HLS) DRM (실기기) |
+| PallyCon DRM | `DrmTestPlayerView` | `drmTestPallycon` API → PallyCon FairPlay (실기기) |
+| OTT 기능 | `OTTPlayerView` | 인트로/오프닝/엔딩 스킵 + 연령등급/콘텐츠 경고 고지 + 커스텀 레이아웃 |
+| 라이브 스트림 | `LiveStreamPlayerView` | Mux HLS 라이브 · duration 자동감지 → LIVE 레이아웃 |
+| ScreenRecordingPrevention | `ScreenRecordingPreventionView` | 화면 녹화/캡처 감지 차단(E0014) |
+| Picture in Picture | `PictureInPictureView` | 백그라운드 자동 PiP + 백그라운드 재생 |
+| Now Playing | `NowPlayingView` | 잠금화면/제어센터 미니플레이어 + 원격 명령 |
+| 워터마크 | `WatermarkPlayerView` | 랜덤 이동 / 고정 위치 워터마크 (web 옵션) |
+| 메서드 제어 | `ImperativeControlView` | 컨트롤러 직접 보유 + 외부 버튼으로 SDK 메서드 호출 |
+| VTT 자막 | `VttSubtitleView` | `playlist[].vtt` 다국어 사이드카 |
+| SRT 자막 | `SrtSubtitleView` | `playlist[].srt` 다국어 사이드카 |
 
 ## SDK 사용 (핵심 API)
 
@@ -63,51 +62,54 @@ open VPEDemo.xcodeproj
 import SwiftUI
 import VPEPlayer
 
-// 옵션 딕셔너리
-VpePlayer(accessKey: "YOUR_ACCESS_KEY",
-          platform: "pub", stage: "real",
+// 1) 간편 컴포넌트 — 딕셔너리
+VpePlayer(accessKey: "YOUR_ACCESS_KEY", platform: "pub", stage: "real",
           options: ["playlist": [["file": "https://.../index.m3u8"]],
-                    "aspectRatio": "16/9", "autostart": true, "muted": true])
+                    "aspectRatio": "16:9", "autostart": true])
 
-// 또는 옵션 JSON 문자열 (web <VpePlayer>와 동일 스키마)
+// 2) 간편 컴포넌트 — JSON 문자열 (web 스키마)
 VpePlayer(accessKey: "YOUR_ACCESS_KEY", optionsJSON: jsonString)
+
+// 3) 컨트롤러 직접 보유 — 외부 메서드 제어 (커스텀 UI)
+@StateObject var player = VPEPlayerController(options: [...], accessKey: "...", platform: "pub", stage: "real")
+VPEPlayerView(controller: player, showsBuiltinControls: false)
+// player.play() / pause() / seek(to:) / toggleFullscreen() ...
 ```
 
 라이선스 체크 / 옵션 머지 / 풀스크린 / 컨트롤 / 자막 / MA 는 모두 SDK 내부에서 처리됩니다.
+전체 옵션·메서드 레퍼런스: SDK 저장소의 `llms.txt` 참고.
 
 ## 주요 동작
 
-- **HLS(.m3u8) · MP4 · FairPlay(HLS) DRM** 재생 — 외부 모듈 불필요(순수 AVPlayer).
-- **DASH(.mpd)는 미지원** — 재생 시도 시 `E0010` 에러 오버레이로 차단.
-- **자막 VTT/SRT** + iOS **접근성 자막 스타일** 연동, 자막 토글(상태 로컬 저장·복원, 기본 OFF).
-- **풀스크린** — 디바이스 회전, 비디오는 `objectFit` + `aspectRatio` 유지(크롭 X), 컨트롤 자동 숨김.
-- **백그라운드 재생 + PiP**(`allowsPictureInPicture`), **Now Playing**(잠금화면/제어센터 + 원격 명령).
-- **화면 캡처/녹화 방지**(`screenRecordingPrevention` → E0014).
-- 좌/우 더블탭 ±10초 시킹, 길게 눌러 1.5배속, 아이콘 탭 스케일 피드백.
+- **HLS(.m3u8) · MP4 · FairPlay(HLS) DRM** 재생 (순수 AVPlayer). **DASH(.mpd) 미지원**(E0010).
+- 자막 **VTT/SRT** + iOS **접근성 자막 스타일** 연동 (기본 OFF, 토글 로컬 저장·복원).
+- **OTT**: intro/opening/ending 스킵 버튼(우상단), ageRating/contentWarnings 고지(3초 후 1회).
+- **라이브**: duration 무한 자동감지 → LIVE 레이아웃(시간 'LIVE', SeekBar 숨김).
+- **워터마크**: `watermarkConfig`(randPosition 주기 이동 / x·y(%) 고정 / opacity).
+- 풀스크린(회전, objectFit+aspectRatio 유지), PiP/백그라운드, Now Playing, 화면녹화방지.
+- 좌/우 더블탭 ±10초 시킹, 길게 눌러 1.5배속.
 
 ## 프로젝트 구조
 
 ```
 demoapp/
+├── scripts/select-sdk.sh       # 로컬/바이너리 SDK 참조 전환
+├── .local.env.example          # 로컬 참조용 (복사 → .local.env)
 ├── VPEDemo.xcodeproj
 └── VPEDemo/
-    ├── VPEDemoApp.swift        # @main + AppDelegate(회전 지원 마스크)
-    ├── ContentView.swift       # 홈 (NavigationStack → 3개 시나리오)
-    ├── BasicPlayerView.swift   # 옵션 JSON 기반 플레이어 + Configuration/App Info 카드
-    ├── RemoteApiPlayerView.swift  # playurl API 옵션 수신 → 재생
-    ├── DrmTestPlayerView.swift  # drmTest API → FairPlay DRM 재생
-    ├── DemoCard.swift          # 카드/필드/버튼 데모 UI 컴포넌트
-    ├── DemoTheme.swift         # 다크 테마 색상 토큰
-    ├── Assets.xcassets
-    └── Info.plist
+    ├── VPEDemoApp.swift         # @main + AppDelegate(회전 마스크)
+    ├── ContentView.swift        # 홈 (NavigationStack → 14개 시나리오)
+    ├── *PlayerView / *SubtitleView / ...  # 시나리오별 View
+    ├── DemoCard.swift / DemoTheme.swift   # 데모 UI 컴포넌트/테마
+    └── Assets.xcassets / Info.plist
 ```
 
 ## Info.plist 설정 (포함됨)
 
 - `UIBackgroundModes` = `audio` — 백그라운드 오디오 / PiP
-- `NSAppTransportSecurity` → `NSExceptionDomains` `naverncp.com` — `http://` 사이드카 자막 로드 허용
+- `NSAppTransportSecurity` → `naverncp.com` 예외 — `http://` 사이드카 자막 허용
 - `UISupportedInterfaceOrientations` (iPhone) — portrait + landscape (풀스크린 회전)
-- 디바이스 회전 풀스크린: `AppDelegate.supportedInterfaceOrientationsFor` → `OrientationManager.shared.currentMask`
+- `AppDelegate.supportedInterfaceOrientationsFor` → `OrientationManager.shared.currentMask` (풀스크린 회전 필수)
 
 ## 라이선스
 
