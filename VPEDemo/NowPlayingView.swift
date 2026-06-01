@@ -9,7 +9,7 @@ import VPEPlayer
 /// 백그라운드 오디오 유지를 위해 `staysActiveInBackground: true` 도 함께 사용.
 struct NowPlayingView: View {
     private let accessKey = "44fcf7432b280107d7d18148ac24dd99"
-    private let streamURL = "https://kr.object.ncloudstorage.com/vpe-sample/sample.m3u8"
+    private let streamURL = "https://m4qgahqg2249.edge.naverncp.com/hls/a4oif2oPHP-HlGGWOFm29A__/endpoint/sample/221027_NAVER_Cloud_intro_Long_ver_AVC_,FHD_2Pass_30fps,HD_2Pass_30fps,SD_2Pass_30fps,.mp4.smil/master.m3u8"
 
     private var optionsJSON: String {
         """

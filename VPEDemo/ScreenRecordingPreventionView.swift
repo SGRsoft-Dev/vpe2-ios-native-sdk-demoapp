@@ -6,7 +6,7 @@ import VPEPlayer
 /// (녹화·미러링·일부 캡처)를 감지해 플레이어를 차단 오버레이(E0014)로 가린다.
 struct ScreenRecordingPreventionView: View {
     private let accessKey = "44fcf7432b280107d7d18148ac24dd99"
-    private let streamURL = "https://kr.object.ncloudstorage.com/vpe-sample/sample.m3u8"
+    private let streamURL = "https://m4qgahqg2249.edge.naverncp.com/hls/a4oif2oPHP-HlGGWOFm29A__/endpoint/sample/221027_NAVER_Cloud_intro_Long_ver_AVC_,FHD_2Pass_30fps,HD_2Pass_30fps,SD_2Pass_30fps,.mp4.smil/master.m3u8"
 
     private var optionsJSON: String {
         """
