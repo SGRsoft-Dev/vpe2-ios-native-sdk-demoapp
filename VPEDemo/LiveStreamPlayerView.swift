@@ -4,15 +4,14 @@ import VPEPlayer
 /// 라이브 스트림 데모.
 /// Mux 테스트 라이브 HLS(`live=1`)를 재생한다.
 ///
-/// 라이브는 duration이 무한이라 SDK가 자동으로 `isLive`를 판정하지만,
-/// 여기서는 `option.live = true` 로 명시해 즉시 라이브 UI(LIVE 라벨, SeekBar 숨김)를 적용한다.
+/// `option.live` 를 지정하지 않는다 → SDK가 재생 중 duration(무한/indefinite)을
+/// 감지해 자동으로 라이브로 판정하고 컨트롤 UI를 라이브 레이아웃(LIVE 라벨, SeekBar 숨김)으로 분기한다.
 struct LiveStreamPlayerView: View {
     private let accessKey = "44fcf7432b280107d7d18148ac24dd99"
     private let streamURL = "https://stream.mux.com/v69RSHhFelSm4701snP22dYz2jICy4E4FUyk02rW4gxRM.m3u8"
 
     private var options: [String: Any] {
         [
-            "live": true,
             "autostart": true,
             "muted": true,
             "aspectRatio": "16:9",
@@ -51,10 +50,10 @@ struct LiveStreamPlayerView: View {
                 infoRow("소스", "Mux 테스트 라이브")
                 infoRow("URL", streamURL)
                 Divider().overlay(DemoTheme.cardBorder)
-                Text("라이브 모드")
+                Text("라이브 자동 감지")
                     .font(.system(size: 12, weight: .semibold))
                     .foregroundStyle(DemoTheme.textSecondary)
-                Text("option.live=true → 컨트롤바가 라이브 레이아웃으로 전환됩니다. 시간 표시는 'LIVE'(빨간 점), SeekBar/탐색은 숨김 처리됩니다.")
+                Text("option.live를 지정하지 않습니다. SDK가 재생 중 duration(무한/indefinite)을 감지해 자동으로 라이브로 판정하고, 컨트롤바를 라이브 레이아웃으로 분기합니다. 시간 표시는 'LIVE'(빨간 점), SeekBar/탐색은 숨김 처리됩니다.")
                     .font(.system(size: 12))
                     .foregroundStyle(DemoTheme.textTertiary)
             }
