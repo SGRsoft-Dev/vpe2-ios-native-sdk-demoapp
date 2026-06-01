@@ -22,7 +22,7 @@ ENV_FILE="$DEMO_DIR/.local.env"
 
 # 설정 (필요 시 .local.env 에서 override)
 REPO_URL="https://github.com/SGRsoft-Dev/vpe2-ios-native-sdk.git"
-MIN_VERSION="1.0.2"
+MIN_VERSION="1.0.4"
 LOCAL_PATH="../sdk"
 PKG_ID="AA0000000000000000000030"   # pbxproj 내 패키지 reference object id (고정)
 
