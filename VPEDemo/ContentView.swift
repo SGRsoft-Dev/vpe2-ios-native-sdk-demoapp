@@ -62,10 +62,11 @@ private struct HomeContent: View {
                                 title: "Playlist",
                                 subtitle: "(준비 중)"
                             )
-                            DisabledMenuRow(
-                                icon: "antenna.radiowaves.left.and.right",
-                                title: "Live Stream",
-                                subtitle: "(준비 중)"
+                            MenuRow(
+                                icon: "dot.radiowaves.left.and.right",
+                                title: "라이브 스트림",
+                                subtitle: "Mux HLS 라이브 · LIVE 컨트롤 레이아웃",
+                                destination: { LiveStreamPlayerView() }
                             )
                         }
                     }

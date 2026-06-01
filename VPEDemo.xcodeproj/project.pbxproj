@@ -14,6 +14,7 @@
 		AA00000000000000000000A4 /* DemoTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000013 /* DemoTheme.swift */; };
 		AA00000000000000000000A5 /* DemoCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000014 /* DemoCard.swift */; };
 		AA00000000000000000000A6 /* BasicPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000015 /* BasicPlayerView.swift */; };
+		AA00000000000000000000A9 /* LiveStreamPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000018 /* LiveStreamPlayerView.swift */; };
 		AA00000000000000000000A8 /* DrmTestPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000017 /* DrmTestPlayerView.swift */; };
 		AA00000000000000000000A7 /* RemoteApiPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000016 /* RemoteApiPlayerView.swift */; };
 /* End PBXBuildFile section */
@@ -26,6 +27,7 @@
 		AA0000000000000000000013 /* DemoTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoTheme.swift; sourceTree = "<group>"; };
 		AA0000000000000000000014 /* DemoCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoCard.swift; sourceTree = "<group>"; };
 		AA0000000000000000000015 /* BasicPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicPlayerView.swift; sourceTree = "<group>"; };
+		AA0000000000000000000018 /* LiveStreamPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveStreamPlayerView.swift; sourceTree = "<group>"; };
 		AA0000000000000000000017 /* DrmTestPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrmTestPlayerView.swift; sourceTree = "<group>"; };
 		AA0000000000000000000016 /* RemoteApiPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteApiPlayerView.swift; sourceTree = "<group>"; };
 		D83CCBAB2FC7F0E60047C40A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 				AA0000000000000000000010 /* VPEDemoApp.swift */,
 				AA0000000000000000000011 /* ContentView.swift */,
 				AA0000000000000000000015 /* BasicPlayerView.swift */,
+				AA0000000000000000000018 /* LiveStreamPlayerView.swift */,
 				AA0000000000000000000017 /* DrmTestPlayerView.swift */,
 				AA0000000000000000000016 /* RemoteApiPlayerView.swift */,
 				AA0000000000000000000013 /* DemoTheme.swift */,
@@ -155,6 +158,7 @@
 				AA00000000000000000000A4 /* DemoTheme.swift in Sources */,
 				AA00000000000000000000A5 /* DemoCard.swift in Sources */,
 				AA00000000000000000000A6 /* BasicPlayerView.swift in Sources */,
+				AA00000000000000000000A9 /* LiveStreamPlayerView.swift in Sources */,
 				AA00000000000000000000A8 /* DrmTestPlayerView.swift in Sources */,
 				AA00000000000000000000A7 /* RemoteApiPlayerView.swift in Sources */,
 			);
