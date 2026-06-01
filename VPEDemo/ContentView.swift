@@ -81,6 +81,12 @@ private struct HomeContent: View {
                                 subtitle: "PIP 및 Background Play 구현하는 예제 코드 입니다.",
                                 destination: { PictureInPictureView() }
                             )
+                            MenuRow(
+                                icon: "play.square.stack.fill",
+                                title: "Now Playing Demo",
+                                subtitle: "잠금화면/제어센터 미니플레이어 · 원격 명령 연동",
+                                destination: { NowPlayingView() }
+                            )
                         }
                     }
                 }
