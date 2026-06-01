@@ -20,7 +20,7 @@ struct WatermarkPlayerView: View {
         var config: [String: Any] = [
             "randPosition": randPosition,
             "randPositionInterVal": 3000,   // web 키(오타 포함) 그대로 — 이동 주기 3초
-            "opacity": 0.6
+            "opacity": 0.2
         ]
         if !randPosition {
             // 고정 모드: 우하단 근처(%)

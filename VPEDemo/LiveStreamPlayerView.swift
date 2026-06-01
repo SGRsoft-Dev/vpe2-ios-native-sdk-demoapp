@@ -13,7 +13,6 @@ struct LiveStreamPlayerView: View {
     private var options: [String: Any] {
         [
             "autostart": true,
-            "muted": true,
             "aspectRatio": "16:9",
             "objectFit": "contain",
             "playlist": [
@@ -53,7 +52,7 @@ struct LiveStreamPlayerView: View {
                 Text("라이브 자동 감지")
                     .font(.system(size: 12, weight: .semibold))
                     .foregroundStyle(DemoTheme.textSecondary)
-                Text("option.live를 지정하지 않습니다. SDK가 재생 중 duration(무한/indefinite)을 감지해 자동으로 라이브로 판정하고, 컨트롤바를 라이브 레이아웃으로 분기합니다. 시간 표시는 'LIVE'(빨간 점), SeekBar/탐색은 숨김 처리됩니다.")
+                Text("SDK가 재생 중 duration(무한/indefinite)을 감지해 자동으로 라이브로 판정하고, 컨트롤바를 라이브 레이아웃으로 분기합니다. 시간 표시는 'LIVE'(빨간 점), SeekBar/탐색은 숨김 처리됩니다.")
                     .font(.system(size: 12))
                     .foregroundStyle(DemoTheme.textTertiary)
             }
