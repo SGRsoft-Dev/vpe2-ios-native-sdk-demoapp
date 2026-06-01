@@ -39,7 +39,7 @@ struct OTTPlayerView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
-                VpePlayer(accessKey: accessKey, autoFullscreen: true, optionsJSON: optionsJSON)
+                VpePlayer(accessKey: accessKey, optionsJSON: optionsJSON)
                     .aspectRatio(16.0 / 9.0, contentMode: .fit)
                     .frame(maxWidth: .infinity)
                     .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
