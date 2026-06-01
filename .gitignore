@@ -31,3 +31,6 @@ Carthage/Build/
 .idea/
 .vscode/
 *.swp
+
+# 로컬 SDK 참조 전환 (../sdk). 없으면 바이너리 패키지 사용.
+.local.env
