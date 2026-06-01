@@ -57,10 +57,11 @@ private struct HomeContent: View {
                                     )
                                 }
                             )
-                            DisabledMenuRow(
-                                icon: "rectangle.stack.fill",
-                                title: "Playlist",
-                                subtitle: "(준비 중)"
+                            MenuRow(
+                                icon: "tv.fill",
+                                title: "OTT 기능",
+                                subtitle: "스킵 버튼 · 연령등급/콘텐츠 경고 고지",
+                                destination: { OTTPlayerView() }
                             )
                             MenuRow(
                                 icon: "dot.radiowaves.left.and.right",
