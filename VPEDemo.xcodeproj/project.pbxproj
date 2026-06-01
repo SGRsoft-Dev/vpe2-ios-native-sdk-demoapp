@@ -14,6 +14,7 @@
 		AA00000000000000000000A4 /* DemoTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000013 /* DemoTheme.swift */; };
 		AA00000000000000000000A5 /* DemoCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000014 /* DemoCard.swift */; };
 		AA00000000000000000000A6 /* BasicPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000015 /* BasicPlayerView.swift */; };
+		AA00000000000000000000B3 /* EmbeddedSubtitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000022 /* EmbeddedSubtitleView.swift */; };
 		AA00000000000000000000B2 /* SrtSubtitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000021 /* SrtSubtitleView.swift */; };
 		AA00000000000000000000B1 /* VttSubtitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000020 /* VttSubtitleView.swift */; };
 		AA00000000000000000000B0 /* ImperativeControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000001F /* ImperativeControlView.swift */; };
@@ -36,6 +37,7 @@
 		AA0000000000000000000013 /* DemoTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoTheme.swift; sourceTree = "<group>"; };
 		AA0000000000000000000014 /* DemoCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoCard.swift; sourceTree = "<group>"; };
 		AA0000000000000000000015 /* BasicPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicPlayerView.swift; sourceTree = "<group>"; };
+		AA0000000000000000000022 /* EmbeddedSubtitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmbeddedSubtitleView.swift; sourceTree = "<group>"; };
 		AA0000000000000000000021 /* SrtSubtitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SrtSubtitleView.swift; sourceTree = "<group>"; };
 		AA0000000000000000000020 /* VttSubtitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VttSubtitleView.swift; sourceTree = "<group>"; };
 		AA000000000000000000001F /* ImperativeControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImperativeControlView.swift; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 				AA0000000000000000000010 /* VPEDemoApp.swift */,
 				AA0000000000000000000011 /* ContentView.swift */,
 				AA0000000000000000000015 /* BasicPlayerView.swift */,
+				AA0000000000000000000022 /* EmbeddedSubtitleView.swift */,
 				AA0000000000000000000021 /* SrtSubtitleView.swift */,
 				AA0000000000000000000020 /* VttSubtitleView.swift */,
 				AA000000000000000000001F /* ImperativeControlView.swift */,
@@ -185,6 +188,7 @@
 				AA00000000000000000000A4 /* DemoTheme.swift in Sources */,
 				AA00000000000000000000A5 /* DemoCard.swift in Sources */,
 				AA00000000000000000000A6 /* BasicPlayerView.swift in Sources */,
+				AA00000000000000000000B3 /* EmbeddedSubtitleView.swift in Sources */,
 				AA00000000000000000000B2 /* SrtSubtitleView.swift in Sources */,
 				AA00000000000000000000B1 /* VttSubtitleView.swift in Sources */,
 				AA00000000000000000000B0 /* ImperativeControlView.swift in Sources */,

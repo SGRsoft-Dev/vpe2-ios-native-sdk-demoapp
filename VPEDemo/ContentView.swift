@@ -117,6 +117,12 @@ private struct HomeContent: View {
                                 subtitle: "playlist[].srt · 한/영 SRT 사이드카",
                                 destination: { SrtSubtitleView() }
                             )
+                            MenuRow(
+                                icon: "captions.bubble.fill",
+                                title: "내장 자막 (HLS)",
+                                subtitle: "EXT-X-MEDIA · AVMediaSelectionGroup 트랙 선택",
+                                destination: { EmbeddedSubtitleView() }
+                            )
                         }
                     }
                 }
