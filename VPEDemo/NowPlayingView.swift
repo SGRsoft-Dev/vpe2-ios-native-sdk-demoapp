@@ -20,6 +20,8 @@ struct NowPlayingView: View {
           objectFit: "contain",
           staysActiveInBackground: true,
           enableNowPlayingPlaybackState: true,
+          allowsPictureInPicture: false,
+          autoPause: false,
           playlist: [
             {
               file: "\(streamURL)",

@@ -19,6 +19,7 @@ struct PictureInPictureView: View {
           allowsPictureInPicture: true,
           staysActiveInBackground: true,
           enableNowPlayingPlaybackState: true,
+          autoPause: false,
           playlist: [
             {
               file: "\(streamURL)",
