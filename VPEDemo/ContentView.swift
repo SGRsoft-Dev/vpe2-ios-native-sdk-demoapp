@@ -69,6 +69,18 @@ private struct HomeContent: View {
                                 subtitle: "Mux HLS 라이브 · LIVE 컨트롤 레이아웃",
                                 destination: { LiveStreamPlayerView() }
                             )
+                            MenuRow(
+                                icon: "eye.slash.fill",
+                                title: "ScreenRecordingPrevention",
+                                subtitle: "화면 녹화 및 스크린캡처를 방지하는 예제 코드입니다.",
+                                destination: { ScreenRecordingPreventionView() }
+                            )
+                            MenuRow(
+                                icon: "pip.fill",
+                                title: "Picture in Picture Demo",
+                                subtitle: "PIP 및 Background Play 구현하는 예제 코드 입니다.",
+                                destination: { PictureInPictureView() }
+                            )
                         }
                     }
                 }

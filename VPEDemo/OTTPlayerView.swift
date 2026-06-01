@@ -81,7 +81,7 @@ struct OTTPlayerView: View {
                 "lower": [
                   { "items": ["TimeBtn"], "wrapper": null },
                   { "wrapper": "Blank", "align": "left" },
-                  { "items": ["SubtitleBtn", "SettingBtn"], "wrapper": null }
+                  { "items": ["SubtitleBtn", "SettingBtn","FullscreenBtn"], "wrapper": null }
                 ],
                 "bottom": [ { "wrapper": "Blank", "items": ["SeekBar"], "align": "center" } ]
               },
@@ -104,8 +104,12 @@ struct OTTPlayerView: View {
             },
             "fullscreen": {
               "vod": {
-                "order": ["top", "center", "lower", "bottom"],
-                "top": [ { "wrapper": "Blank", "items": [], "align": "left" } ],
+                "order": [ "center","top", "lower", "bottom"],
+                                "top": [
+                                  { "items": ["MetaDesc"], "wrapper": null },
+                                  { "wrapper": "Blank", "items": [], "align": "left" },
+                                  { "items": [], "cap": 2, "wrapper": null }
+                                ],
                 "center": [ { "items": ["BigPlayBtn"], "align": "center" } ],
                 "lower": [ { "wrapper": "Blank", "items": ["SeekBar"], "align": "center" } ],
                 "bottom": [
