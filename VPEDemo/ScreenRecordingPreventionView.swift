@@ -16,6 +16,8 @@ struct ScreenRecordingPreventionView: View {
           aspectRatio: "16:9",
           objectFit: "contain",
           screenRecordingPrevention: true,
+          allowsPictureInPicture: false,
+          enableNowPlayingPlaybackState: false,
           playlist: [
             {
               file: "\(streamURL)",
