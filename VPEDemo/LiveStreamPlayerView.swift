@@ -10,28 +10,26 @@ struct LiveStreamPlayerView: View {
     private let accessKey = "44fcf7432b280107d7d18148ac24dd99"
     private let streamURL = "https://stream.mux.com/v69RSHhFelSm4701snP22dYz2jICy4E4FUyk02rW4gxRM.m3u8"
 
-    private var optionsJSON: String {
-        """
-        {
-          live: true,
-          autostart: true,
-          muted: true,
-          aspectRatio: "16:9",
-          objectFit: "contain",
-          playlist: [
-            {
-              file: "\(streamURL)",
-              description: { title: "Mux 라이브 테스트 스트림", profile_name: "Mux" }
-            }
-          ]
-        }
-        """
+    private var options: [String: Any] {
+        [
+            "live": true,
+            "autostart": true,
+            "muted": true,
+            "aspectRatio": "16:9",
+            "objectFit": "contain",
+            "playlist": [
+                [
+                    "file": streamURL,
+                    "description": ["title": "Mux 라이브 테스트 스트림", "profile_name": "Mux"]
+                ]
+            ]
+        ]
     }
 
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
-                VpePlayer(accessKey: accessKey, optionsJSON: optionsJSON)
+                VpePlayer(accessKey: accessKey, options: options)
                     .aspectRatio(16.0 / 9.0, contentMode: .fit)
                     .frame(maxWidth: .infinity)
                     .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))

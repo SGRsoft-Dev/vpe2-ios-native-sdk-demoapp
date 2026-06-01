@@ -11,31 +11,29 @@ struct NowPlayingView: View {
     private let accessKey = "44fcf7432b280107d7d18148ac24dd99"
     private let streamURL = "https://m4qgahqg2249.edge.naverncp.com/hls/a4oif2oPHP-HlGGWOFm29A__/endpoint/sample/221027_NAVER_Cloud_intro_Long_ver_AVC_,FHD_2Pass_30fps,HD_2Pass_30fps,SD_2Pass_30fps,.mp4.smil/master.m3u8"
 
-    private var optionsJSON: String {
-        """
-        {
-          autostart: true,
-          muted: false,
-          aspectRatio: "16:9",
-          objectFit: "contain",
-          staysActiveInBackground: true,
-          enableNowPlayingPlaybackState: true,
-          allowsPictureInPicture: false,
-          autoPause: false,
-          playlist: [
-            {
-              file: "\(streamURL)",
-              description: { title: "Now Playing 데모", profile_name: "VPE Player" }
-            }
-          ]
-        }
-        """
+    private var options: [String: Any] {
+        [
+            "autostart": true,
+            "muted": false,
+            "aspectRatio": "16:9",
+            "objectFit": "contain",
+            "staysActiveInBackground": true,
+            "enableNowPlayingPlaybackState": true,
+            "allowsPictureInPicture": false,
+            "autoPause": false,
+            "playlist": [
+                [
+                    "file": streamURL,
+                    "description": ["title": "Now Playing 데모", "profile_name": "VPE Player"]
+                ]
+            ]
+        ]
     }
 
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
-                VpePlayer(accessKey: accessKey, optionsJSON: optionsJSON)
+                VpePlayer(accessKey: accessKey, options: options)
                     .aspectRatio(16.0 / 9.0, contentMode: .fit)
                     .frame(maxWidth: .infinity)
                     .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))

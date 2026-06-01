@@ -13,138 +13,116 @@ struct OTTPlayerView: View {
     private let accessKey = "44fcf7432b280107d7d18148ac24dd99"
     private let streamURL = "https://test-streams.mux.dev/tos_ismc/main.m3u8"
 
-    private var optionsJSON: String {
-        """
-        {
-          autostart: true,
-          muted: true,
-          aspectRatio: "16:9",
-          objectFit: "contain",
-          controlActiveTime: 3000,
-          playlist: [
-            {
-              file: "\(streamURL)",
-              description: { title: "Tears of Steel (OTT 데모)", profile_name: "Mux" },
-              ageRating: "15",
-              contentWarnings: ["violence", "horror"],
-              intro:   { start: "00:05", duration: 15 },
-              opening: { start: "00:30", duration: 20 },
-              ending:  { start: "09:30", duration: 30 }
-            }
-          ],
-          layout: {
-            "pc": {
-              "vod": {
-                "order": ["top", "upper", "center", "lower", "bottom"],
-                "top": [
-                  { "items": ["MetaDesc"] },
-                  { "wrapper": "Blank", "items": [], "align": "left" },
-                  { "items": ["ShareBtn"] }
-                ],
-                "upper": [ { "wrapper": "Blank", "items": [], "align": "left" } ],
-                "center": [ { "items": ["BigPlayBtn"], "align": "center" } ],
-                "lower": [ { "wrapper": "Blank", "items": ["SeekBar"], "align": "center" } ],
-                "bottom": [
-                  { "items": ["PlayBtn"], "wrapper": "Group" },
-                  { "items": ["NextPrevBtn"], "wrapper": "Group" },
-                  { "items": ["VolumeBtn"], "wrapper": "Group" },
-                  { "items": ["TimeBtn"], "wrapper": "Group" },
-                  { "wrapper": "Blank", "items": [], "align": "left" },
-                  { "items": ["SubtitleBtn", "PipBtn", "SettingBtn", "FullscreenBtn"], "cap": 2, "wrapper": "Group" }
+    private var options: [String: Any] {
+        [
+            "autostart": true,
+            "muted": true,
+            "aspectRatio": "16:9",
+            "objectFit": "contain",
+            "controlActiveTime": 3000,
+            "playlist": [
+                [
+                    "file": streamURL,
+                    "description": ["title": "Tears of Steel (OTT 데모)", "profile_name": "Mux"],
+                    "ageRating": "15",
+                    "contentWarnings": ["violence", "horror"],
+                    "intro":   ["start": "00:05", "duration": 15],
+                    "opening": ["start": "00:30", "duration": 20],
+                    "ending":  ["start": "09:30", "duration": 30]
                 ]
-              },
-              "live": {
-                "order": ["top", "upper", "center", "lower", "bottom"],
-                "top": [ { "items": ["MetaDesc"] } ],
-                "upper": [ { "wrapper": "Blank", "items": [], "align": "left" } ],
-                "center": [ { "items": ["BigPlayBtn"], "align": "center" } ],
-                "lower": [ { "wrapper": "Blank", "items": ["SeekBar"], "align": "center" } ],
-                "bottom": [
-                  { "items": ["PlayBtn"], "wrapper": "Group" },
-                  { "items": ["NextPrevBtn"], "wrapper": "Group" },
-                  { "items": ["TimeBtn"], "wrapper": "Group" },
-                  { "wrapper": "Blank", "align": "left" },
-                  { "items": ["SubtitleBtn", "PipBtn", "SettingBtn", "FullscreenBtn"], "cap": 2, "wrapper": "Group" }
-                ]
-              }
-            },
-            "mobile": {
-              "vod": {
-                "order": ["upper", "center", "top", "bottom", "lower"],
-                "top": [
-                  { "items": ["MetaDesc"], "wrapper": null },
-                  { "wrapper": "Blank", "items": [], "align": "left" },
-                  { "items": [], "cap": 2, "wrapper": null }
-                ],
-                "upper": [ { "wrapper": "Blank", "items": [], "align": "left" } ],
-                "center": [ { "items": ["BigPlayBtn"], "align": "center" } ],
-                "lower": [
-                  { "items": ["TimeBtn"], "wrapper": null },
-                  { "wrapper": "Blank", "align": "left" },
-                  { "items": ["SubtitleBtn", "SettingBtn","FullscreenBtn"], "wrapper": null }
-                ],
-                "bottom": [ { "wrapper": "Blank", "items": ["SeekBar"], "align": "center" } ]
-              },
-              "live": {
-                "order": ["top", "upper", "center", "lower", "bottom"],
-                "top": [
-                  { "items": ["MuteBtn"], "wrapper": "Group" },
-                  { "wrapper": "Blank", "items": [], "align": "left" },
-                  { "items": ["PipBtn", "SettingBtn"], "cap": 2, "wrapper": "Group" }
-                ],
-                "upper": [ { "wrapper": "Blank", "items": [], "align": "left" } ],
-                "center": [ { "items": ["BigPlayBtn"], "align": "center" } ],
-                "lower": [
-                  { "items": ["TimeBtn"], "wrapper": "Group" },
-                  { "wrapper": "Blank", "items": [], "align": "left" },
-                  { "items": ["SubtitleBtn", "FullscreenBtn"], "wrapper": "Group" }
-                ],
-                "bottom": [ { "wrapper": "Blank", "items": ["SeekBar"], "align": "center" } ]
-              }
-            },
-            "fullscreen": {
-              "vod": {
-                "order": [ "center","top", "lower", "bottom"],
-                                "top": [
-                                  { "items": ["MetaDesc"], "wrapper": null },
-                                  { "wrapper": "Blank", "items": [], "align": "left" },
-                                  { "items": [], "cap": 2, "wrapper": null }
-                                ],
-                "center": [ { "items": ["BigPlayBtn"], "align": "center" } ],
-                "lower": [ { "wrapper": "Blank", "items": ["SeekBar"], "align": "center" } ],
-                "bottom": [
-                  { "items": ["PlayBtn", "PrevBtn", "NextBtn"], "wrapper": "Group" },
-                  { "items": ["VolumeBtn"], "wrapper": "Group" },
-                  { "items": ["TimeBtn"], "wrapper": "Group" },
-                  { "wrapper": "Blank", "align": "left" },
-                  { "items": ["SubtitleBtn", "SettingBtn", "FullscreenBtn"], "cap": 2, "wrapper": "Group" }
-                ],
-                "upper": [ { "wrapper": "Blank", "items": [], "align": "left" } ]
-              },
-              "live": {
-                "order": ["top", "center", "lower", "bottom"],
-                "top": [ { "wrapper": "Blank", "items": [], "align": "left" } ],
-                "center": [ { "items": ["BigPlayBtn"], "align": "center" } ],
-                "lower": [ { "wrapper": "Blank", "items": ["SeekBar"], "align": "center" } ],
-                "bottom": [
-                  { "items": ["PlayBtn", "PrevBtn", "NextBtn"], "wrapper": "Group" },
-                  { "items": ["VolumeBtn"], "wrapper": "Group" },
-                  { "items": ["TimeBtn"], "wrapper": "Group" },
-                  { "wrapper": "Blank", "align": "left" },
-                  { "items": ["SubtitleBtn", "SettingBtn", "FullscreenBtn"], "cap": 2, "wrapper": "Group" }
-                ],
-                "upper": [ { "wrapper": "Blank", "items": [], "align": "left" } ]
-              }
-            }
-          }
+            ],
+            "layout": layoutDict
+        ]
+    }
+
+    /// 반응형 컨트롤 레이아웃 (pc/mobile/fullscreen × vod/live).
+    private var layoutDict: [String: Any] {
+        func blank(_ align: String = "left") -> [String: Any] {
+            ["wrapper": "Blank", "items": [String](), "align": align]
         }
-        """
+        func grp(_ items: [String], cap: Int? = nil) -> [String: Any] {
+            var d: [String: Any] = ["items": items, "wrapper": "Group"]
+            if let cap { d["cap"] = cap }
+            return d
+        }
+        func plain(_ items: [String]) -> [String: Any] { ["items": items, "wrapper": NSNull()] }
+        let bigPlay: [String: Any] = ["items": ["BigPlayBtn"], "align": "center"]
+        let seek: [String: Any] = ["wrapper": "Blank", "items": ["SeekBar"], "align": "center"]
+
+        return [
+            "pc": [
+                "vod": [
+                    "order": ["top", "upper", "center", "lower", "bottom"],
+                    "top": [["items": ["MetaDesc"]], blank(), ["items": ["ShareBtn"]]],
+                    "upper": [blank()],
+                    "center": [bigPlay],
+                    "lower": [seek],
+                    "bottom": [
+                        grp(["PlayBtn"]), grp(["NextPrevBtn"]), grp(["VolumeBtn"]), grp(["TimeBtn"]),
+                        blank(), grp(["SubtitleBtn", "PipBtn", "SettingBtn", "FullscreenBtn"], cap: 2)
+                    ]
+                ],
+                "live": [
+                    "order": ["top", "upper", "center", "lower", "bottom"],
+                    "top": [["items": ["MetaDesc"]]],
+                    "upper": [blank()],
+                    "center": [bigPlay],
+                    "lower": [seek],
+                    "bottom": [
+                        grp(["PlayBtn"]), grp(["NextPrevBtn"]), grp(["TimeBtn"]),
+                        blank(), grp(["SubtitleBtn", "PipBtn", "SettingBtn", "FullscreenBtn"], cap: 2)
+                    ]
+                ]
+            ],
+            "mobile": [
+                "vod": [
+                    "order": ["upper", "center", "top", "bottom", "lower"],
+                    "top": [plain(["MetaDesc"]), blank(), ["items": [String](), "cap": 2, "wrapper": NSNull()]],
+                    "upper": [blank()],
+                    "center": [bigPlay],
+                    "lower": [plain(["TimeBtn"]), blank(), plain(["SubtitleBtn", "SettingBtn", "FullscreenBtn"])],
+                    "bottom": [seek]
+                ],
+                "live": [
+                    "order": ["top", "upper", "center", "lower", "bottom"],
+                    "top": [grp(["MuteBtn"]), blank(), grp(["PipBtn", "SettingBtn"], cap: 2)],
+                    "upper": [blank()],
+                    "center": [bigPlay],
+                    "lower": [grp(["TimeBtn"]), blank(), grp(["SubtitleBtn", "FullscreenBtn"])],
+                    "bottom": [seek]
+                ]
+            ],
+            "fullscreen": [
+                "vod": [
+                    "order": ["center", "top", "lower", "bottom"],
+                    "top": [plain(["MetaDesc"]), blank(), ["items": [String](), "cap": 2, "wrapper": NSNull()]],
+                    "center": [bigPlay],
+                    "lower": [seek],
+                    "bottom": [
+                        grp(["PlayBtn", "PrevBtn", "NextBtn"]), grp(["VolumeBtn"]), grp(["TimeBtn"]),
+                        blank(), grp(["SubtitleBtn", "SettingBtn", "FullscreenBtn"], cap: 2)
+                    ],
+                    "upper": [blank()]
+                ],
+                "live": [
+                    "order": ["top", "center", "lower", "bottom"],
+                    "top": [blank()],
+                    "center": [bigPlay],
+                    "lower": [seek],
+                    "bottom": [
+                        grp(["PlayBtn", "PrevBtn", "NextBtn"]), grp(["VolumeBtn"]), grp(["TimeBtn"]),
+                        blank(), grp(["SubtitleBtn", "SettingBtn", "FullscreenBtn"], cap: 2)
+                    ],
+                    "upper": [blank()]
+                ]
+            ]
+        ]
     }
 
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
-                VpePlayer(accessKey: accessKey, optionsJSON: optionsJSON)
+                VpePlayer(accessKey: accessKey, options: options)
                     .aspectRatio(16.0 / 9.0, contentMode: .fit)
                     .frame(maxWidth: .infinity)
                     .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
