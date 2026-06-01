@@ -2,50 +2,48 @@ import SwiftUI
 import UIKit
 import VPEPlayer
 
-enum Platform: String, CaseIterable { case pub, gov }
-enum Stage: String, CaseIterable { case real, beta }
+/// "기본 플레이어 구성" — 옵션 JSON 문자열이 아니라 **Swift 딕셔너리(`[String: Any]`)** 로
+/// 옵션을 직접 구성해 `VpePlayer(options:)` 로 전달하는 예시.
+/// (JSON 버전은 `BasicPlayerView` — "기본 플레이어 구성 (JSON)")
+struct BasicPlayerDictView: View {
 
-/// "기본 플레이어 구성" — web `<VpePlayer>`와 동일한 방식으로 SDK를 사용하는 예시.
-/// Configuration 카드의 platform/stage/accessKey 값을 "적용" 시 VpePlayer에 연동.
-struct BasicPlayerView: View {
+    // MARK: - 입력 옵션 (딕셔너리 직접 구성)
 
-    // MARK: - 입력 JSON (web SDK와 동일 스키마)
-
-    private static let optionsJSON: String = """
-    {
-      "playlist": [
-        {
-          "file": "https://u6dwfh2w5883.edge.naverncp.com/hls/-EQTX8kk3dFTfezHSE0rcg__/vodstation/vod-abr-test/j5IXBfIJ83893893_1080p_,AVC_SD_1Pass_30fps_1,AVC_HD_1Pass_30fps,AVC_FHD_1Pass_30fps,.mp4.smil/master.m3u8",
-          "poster": "https://tkmenfxu2702.edge.naverncp.com/profile/202605/25e7fe682c76cbbb31e7e6fc79a653ac.png",
-          "description": {
-            "created_at": "Wed Jul 13 2022 00:00:00 GMT+0900 (한국 표준시)",
-            "profile_image": "https://tkmenfxu2702.edge.naverncp.com/profile/202511/cf38c0603c57faacd99cbe6d967c38b3.png",
-            "profile_name": "네이버클라우드",
-            "title": "1편 — 네이버클라우드 소개"
-          },
-          srt: [
-            { id: "ko", file: "http://player.vpe.naverncp.com/srt/ncp_overview_script_kr_v2.srt", label: "한국어", default: true },
-            { id: "en", file: "http://player.vpe.naverncp.com/srt/ncp_overview_script_en_v2.srt", label: "영어" },
-          ],
-        },
-        {
-          "file": "https://m4qgahqg2249.edge.naverncp.com/hls/a4oif2oPHP-HlGGWOFm29A__/endpoint/sample/221027_NAVER_Cloud_intro_Long_ver_AVC_,FHD_2Pass_30fps,HD_2Pass_30fps,SD_2Pass_30fps,.mp4.smil/master.m3u8",
-          "poster": "https://2ardrvaj2252.edge.naverncp.com/endpoint/sample/221027_NAVER_Cloud_intro_Long_ver_01.jpg",
-          "description": {
-            "created_at": "Wed Jul 13 2022 00:00:00 GMT+0900 (한국 표준시)",
-            "profile_image": "https://tkmenfxu2702.edge.naverncp.com/profile/202511/cf38c0603c57faacd99cbe6d967c38b3.png",
-            "profile_name": "네이버클라우드",
-            "title": "2편 — 두 번째 에피소드"
-          }
-        },
-      ],
-      "autostart": true,
-      "autoPause": false,
-      "allowsPictureInPicture": true,
-      "enableNowPlayingPlaybackState": true,
-      "screenRecordingPrevention": true,
-    }
-    """
+    private static let options: [String: Any] = [
+        "autostart": true,
+        "autoPause": false,
+        "allowsPictureInPicture": true,
+        "enableNowPlayingPlaybackState": true,
+        "screenRecordingPrevention": true,
+        "aspectRatio": "16:9",
+        "objectFit": "contain",
+        "playlist": [
+            [
+                "file": "https://u6dwfh2w5883.edge.naverncp.com/hls/-EQTX8kk3dFTfezHSE0rcg__/vodstation/vod-abr-test/j5IXBfIJ83893893_1080p_,AVC_SD_1Pass_30fps_1,AVC_HD_1Pass_30fps,AVC_FHD_1Pass_30fps,.mp4.smil/master.m3u8",
+                "poster": "https://tkmenfxu2702.edge.naverncp.com/profile/202605/25e7fe682c76cbbb31e7e6fc79a653ac.png",
+                "description": [
+                    "title": "1편 — 네이버클라우드 소개",
+                    "profile_name": "네이버클라우드",
+                    "profile_image": "https://tkmenfxu2702.edge.naverncp.com/profile/202511/cf38c0603c57faacd99cbe6d967c38b3.png",
+                    "created_at": "Wed Jul 13 2022 00:00:00 GMT+0900 (한국 표준시)"
+                ],
+                "srt": [
+                    ["id": "ko", "file": "http://player.vpe.naverncp.com/srt/ncp_overview_script_kr_v2.srt", "label": "한국어", "default": true],
+                    ["id": "en", "file": "http://player.vpe.naverncp.com/srt/ncp_overview_script_en_v2.srt", "label": "영어"]
+                ]
+            ],
+            [
+                "file": "https://m4qgahqg2249.edge.naverncp.com/hls/a4oif2oPHP-HlGGWOFm29A__/endpoint/sample/221027_NAVER_Cloud_intro_Long_ver_AVC_,FHD_2Pass_30fps,HD_2Pass_30fps,SD_2Pass_30fps,.mp4.smil/master.m3u8",
+                "poster": "https://2ardrvaj2252.edge.naverncp.com/endpoint/sample/221027_NAVER_Cloud_intro_Long_ver_01.jpg",
+                "description": [
+                    "title": "2편 — 두 번째 에피소드",
+                    "profile_name": "네이버클라우드",
+                    "profile_image": "https://tkmenfxu2702.edge.naverncp.com/profile/202511/cf38c0603c57faacd99cbe6d967c38b3.png",
+                    "created_at": "Wed Jul 13 2022 00:00:00 GMT+0900 (한국 표준시)"
+                ]
+            ]
+        ]
+    ]
 
     // MARK: - 입력 State (Configuration 카드)
     @State private var platform: Platform = .pub
@@ -56,7 +54,6 @@ struct BasicPlayerView: View {
     @State private var appliedKey: String = "44fcf7432b280107d7d18148ac24dd99"
     @State private var appliedPlatform: String = "pub"
     @State private var appliedStage: String = "real"
-    /// 확정값 변경 시 VpePlayer를 재생성(.id)해 새 라이선스로 다시 체크하는 토큰.
     @State private var reloadToken: Int = 0
 
     // MARK: - Body
@@ -67,16 +64,15 @@ struct BasicPlayerView: View {
 
             ScrollView {
                 VStack(spacing: 0) {
-                    // web <VpePlayer accessKey= options= /> 와 동일한 사용 방식.
-                    // 확정값(applied*)이 바뀌면 .id(reloadToken)로 재생성 → 새 라이선스 재체크.
+                    // 딕셔너리 옵션을 그대로 VpePlayer(options:)로 전달.
                     VpePlayer(
                         accessKey: appliedKey,
                         platform: appliedPlatform,
                         stage: appliedStage,
-                        optionsJSON: Self.optionsJSON
+                        options: Self.options
                     )
                     .id(reloadToken)
-                    .frame(maxWidth: .infinity)   // 종횡비는 SDK가 option.aspectRatio로 결정
+                    .frame(maxWidth: .infinity)
                     .clipped()
                     .background(Color.black)
 
@@ -91,11 +87,10 @@ struct BasicPlayerView: View {
             }
             .scrollIndicators(.hidden)
         }
-        .navigationTitle("기본 플레이어 구성 (JSON)")
+        .navigationTitle("기본 플레이어 구성")
         .navigationBarTitleDisplayMode(.inline)
     }
 
-    // MARK: - "적용" — 입력값을 확정해 VpePlayer 재생성 트리거
     private func apply() {
         appliedKey = licenseKey
         appliedPlatform = platform.rawValue
@@ -167,5 +162,5 @@ struct BasicPlayerView: View {
 }
 
 #Preview {
-    NavigationStack { BasicPlayerView() }
+    NavigationStack { BasicPlayerDictView() }
 }

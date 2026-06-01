@@ -14,6 +14,7 @@
 		AA00000000000000000000A4 /* DemoTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000013 /* DemoTheme.swift */; };
 		AA00000000000000000000A5 /* DemoCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000014 /* DemoCard.swift */; };
 		AA00000000000000000000A6 /* BasicPlayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0000000000000000000015 /* BasicPlayerView.swift */; };
+		AA00000000000000000000AE /* BasicPlayerDictView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000001D /* BasicPlayerDictView.swift */; };
 		AA00000000000000000000AD /* NowPlayingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000001C /* NowPlayingView.swift */; };
 		AA00000000000000000000AC /* PictureInPictureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000001B /* PictureInPictureView.swift */; };
 		AA00000000000000000000AB /* ScreenRecordingPreventionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000000000000000000001A /* ScreenRecordingPreventionView.swift */; };
@@ -31,6 +32,7 @@
 		AA0000000000000000000013 /* DemoTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoTheme.swift; sourceTree = "<group>"; };
 		AA0000000000000000000014 /* DemoCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DemoCard.swift; sourceTree = "<group>"; };
 		AA0000000000000000000015 /* BasicPlayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicPlayerView.swift; sourceTree = "<group>"; };
+		AA000000000000000000001D /* BasicPlayerDictView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicPlayerDictView.swift; sourceTree = "<group>"; };
 		AA000000000000000000001C /* NowPlayingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowPlayingView.swift; sourceTree = "<group>"; };
 		AA000000000000000000001B /* PictureInPictureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureInPictureView.swift; sourceTree = "<group>"; };
 		AA000000000000000000001A /* ScreenRecordingPreventionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenRecordingPreventionView.swift; sourceTree = "<group>"; };
@@ -76,6 +78,7 @@
 				AA0000000000000000000010 /* VPEDemoApp.swift */,
 				AA0000000000000000000011 /* ContentView.swift */,
 				AA0000000000000000000015 /* BasicPlayerView.swift */,
+				AA000000000000000000001D /* BasicPlayerDictView.swift */,
 				AA000000000000000000001C /* NowPlayingView.swift */,
 				AA000000000000000000001B /* PictureInPictureView.swift */,
 				AA000000000000000000001A /* ScreenRecordingPreventionView.swift */,
@@ -170,6 +173,7 @@
 				AA00000000000000000000A4 /* DemoTheme.swift in Sources */,
 				AA00000000000000000000A5 /* DemoCard.swift in Sources */,
 				AA00000000000000000000A6 /* BasicPlayerView.swift in Sources */,
+				AA00000000000000000000AE /* BasicPlayerDictView.swift in Sources */,
 				AA00000000000000000000AD /* NowPlayingView.swift in Sources */,
 				AA00000000000000000000AC /* PictureInPictureView.swift in Sources */,
 				AA00000000000000000000AB /* ScreenRecordingPreventionView.swift in Sources */,

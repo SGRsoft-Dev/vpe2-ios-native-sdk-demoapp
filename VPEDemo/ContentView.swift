@@ -28,7 +28,13 @@ private struct HomeContent: View {
                             MenuRow(
                                 icon: "play.rectangle.fill",
                                 title: "기본 플레이어 구성",
-                                subtitle: "NCP HLS · 옵션/이벤트 카드 · 설정 모달",
+                                subtitle: "옵션을 Swift 딕셔너리로 직접 구성",
+                                destination: { BasicPlayerDictView() }
+                            )
+                            MenuRow(
+                                icon: "curlybraces",
+                                title: "기본 플레이어 구성 (JSON)",
+                                subtitle: "옵션 JSON 문자열로 구성 (web 스키마)",
                                 destination: { BasicPlayerView() }
                             )
                             MenuRow(
