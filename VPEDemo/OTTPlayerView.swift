@@ -31,7 +31,108 @@ struct OTTPlayerView: View {
               opening: { start: "00:30", duration: 20 },
               ending:  { start: "09:30", duration: 30 }
             }
-          ]
+          ],
+          layout: {
+            "pc": {
+              "vod": {
+                "order": ["top", "upper", "center", "lower", "bottom"],
+                "top": [
+                  { "items": ["MetaDesc"] },
+                  { "wrapper": "Blank", "items": [], "align": "left" },
+                  { "items": ["ShareBtn"] }
+                ],
+                "upper": [ { "wrapper": "Blank", "items": [], "align": "left" } ],
+                "center": [ { "items": ["BigPlayBtn"], "align": "center" } ],
+                "lower": [ { "wrapper": "Blank", "items": ["SeekBar"], "align": "center" } ],
+                "bottom": [
+                  { "items": ["PlayBtn"], "wrapper": "Group" },
+                  { "items": ["NextPrevBtn"], "wrapper": "Group" },
+                  { "items": ["VolumeBtn"], "wrapper": "Group" },
+                  { "items": ["TimeBtn"], "wrapper": "Group" },
+                  { "wrapper": "Blank", "items": [], "align": "left" },
+                  { "items": ["SubtitleBtn", "PipBtn", "SettingBtn", "FullscreenBtn"], "cap": 2, "wrapper": "Group" }
+                ]
+              },
+              "live": {
+                "order": ["top", "upper", "center", "lower", "bottom"],
+                "top": [ { "items": ["MetaDesc"] } ],
+                "upper": [ { "wrapper": "Blank", "items": [], "align": "left" } ],
+                "center": [ { "items": ["BigPlayBtn"], "align": "center" } ],
+                "lower": [ { "wrapper": "Blank", "items": ["SeekBar"], "align": "center" } ],
+                "bottom": [
+                  { "items": ["PlayBtn"], "wrapper": "Group" },
+                  { "items": ["NextPrevBtn"], "wrapper": "Group" },
+                  { "items": ["TimeBtn"], "wrapper": "Group" },
+                  { "wrapper": "Blank", "align": "left" },
+                  { "items": ["SubtitleBtn", "PipBtn", "SettingBtn", "FullscreenBtn"], "cap": 2, "wrapper": "Group" }
+                ]
+              }
+            },
+            "mobile": {
+              "vod": {
+                "order": ["upper", "center", "top", "bottom", "lower"],
+                "top": [
+                  { "items": ["MetaDesc"], "wrapper": null },
+                  { "wrapper": "Blank", "items": [], "align": "left" },
+                  { "items": [], "cap": 2, "wrapper": null }
+                ],
+                "upper": [ { "wrapper": "Blank", "items": [], "align": "left" } ],
+                "center": [ { "items": ["BigPlayBtn"], "align": "center" } ],
+                "lower": [
+                  { "items": ["TimeBtn"], "wrapper": null },
+                  { "wrapper": "Blank", "align": "left" },
+                  { "items": ["SubtitleBtn", "SettingBtn"], "wrapper": null }
+                ],
+                "bottom": [ { "wrapper": "Blank", "items": ["SeekBar"], "align": "center" } ]
+              },
+              "live": {
+                "order": ["top", "upper", "center", "lower", "bottom"],
+                "top": [
+                  { "items": ["MuteBtn"], "wrapper": "Group" },
+                  { "wrapper": "Blank", "items": [], "align": "left" },
+                  { "items": ["PipBtn", "SettingBtn"], "cap": 2, "wrapper": "Group" }
+                ],
+                "upper": [ { "wrapper": "Blank", "items": [], "align": "left" } ],
+                "center": [ { "items": ["BigPlayBtn"], "align": "center" } ],
+                "lower": [
+                  { "items": ["TimeBtn"], "wrapper": "Group" },
+                  { "wrapper": "Blank", "items": [], "align": "left" },
+                  { "items": ["SubtitleBtn", "FullscreenBtn"], "wrapper": "Group" }
+                ],
+                "bottom": [ { "wrapper": "Blank", "items": ["SeekBar"], "align": "center" } ]
+              }
+            },
+            "fullscreen": {
+              "vod": {
+                "order": ["top", "center", "lower", "bottom"],
+                "top": [ { "wrapper": "Blank", "items": [], "align": "left" } ],
+                "center": [ { "items": ["BigPlayBtn"], "align": "center" } ],
+                "lower": [ { "wrapper": "Blank", "items": ["SeekBar"], "align": "center" } ],
+                "bottom": [
+                  { "items": ["PlayBtn", "PrevBtn", "NextBtn"], "wrapper": "Group" },
+                  { "items": ["VolumeBtn"], "wrapper": "Group" },
+                  { "items": ["TimeBtn"], "wrapper": "Group" },
+                  { "wrapper": "Blank", "align": "left" },
+                  { "items": ["SubtitleBtn", "SettingBtn", "FullscreenBtn"], "cap": 2, "wrapper": "Group" }
+                ],
+                "upper": [ { "wrapper": "Blank", "items": [], "align": "left" } ]
+              },
+              "live": {
+                "order": ["top", "center", "lower", "bottom"],
+                "top": [ { "wrapper": "Blank", "items": [], "align": "left" } ],
+                "center": [ { "items": ["BigPlayBtn"], "align": "center" } ],
+                "lower": [ { "wrapper": "Blank", "items": ["SeekBar"], "align": "center" } ],
+                "bottom": [
+                  { "items": ["PlayBtn", "PrevBtn", "NextBtn"], "wrapper": "Group" },
+                  { "items": ["VolumeBtn"], "wrapper": "Group" },
+                  { "items": ["TimeBtn"], "wrapper": "Group" },
+                  { "wrapper": "Blank", "align": "left" },
+                  { "items": ["SubtitleBtn", "SettingBtn", "FullscreenBtn"], "cap": 2, "wrapper": "Group" }
+                ],
+                "upper": [ { "wrapper": "Blank", "items": [], "align": "left" } ]
+              }
+            }
+          }
         }
         """
     }
