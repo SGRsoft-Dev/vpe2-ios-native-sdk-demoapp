@@ -105,6 +105,18 @@ private struct HomeContent: View {
                                 subtitle: "컨트롤러 직접 보유 · 외부 버튼으로 SDK 메서드 호출",
                                 destination: { ImperativeControlView() }
                             )
+                            MenuRow(
+                                icon: "captions.bubble.fill",
+                                title: "VTT 자막",
+                                subtitle: "playlist[].vtt · 다국어 WebVTT 사이드카",
+                                destination: { VttSubtitleView() }
+                            )
+                            MenuRow(
+                                icon: "captions.bubble",
+                                title: "SRT 자막",
+                                subtitle: "playlist[].srt · 한/영 SRT 사이드카",
+                                destination: { SrtSubtitleView() }
+                            )
                         }
                     }
                 }
