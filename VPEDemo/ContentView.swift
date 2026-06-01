@@ -43,6 +43,20 @@ private struct HomeContent: View {
                                 subtitle: "drmTest API · FairPlay(HLS) DRM 재생",
                                 destination: { DrmTestPlayerView() }
                             )
+                            MenuRow(
+                                icon: "lock.rectangle.stack.fill",
+                                title: "PallyCon DRM",
+                                subtitle: "drmTestPallycon API · FairPlay(HLS) DRM",
+                                destination: {
+                                    DrmTestPlayerView(
+                                        endpoint: "https://vpe.sgrsoft.com/api/drmTestPallycon",
+                                        navTitle: "PallyCon DRM",
+                                        provider: "PallyCon",
+                                        authNote: "PallyCon license 요청에 pallycon-customdata-v2 헤더 + raw SPC(application/octet-stream)를 전달하고, 인증서는 fpsKeyManager.do에서 받습니다.",
+                                        extraNote: "이 데모 응답은 PallyCon 옵션 구조 예시(샘플 토큰)입니다. 실제 재생에는 유효한 PallyCon 토큰/콘텐츠가 필요합니다."
+                                    )
+                                }
+                            )
                             DisabledMenuRow(
                                 icon: "rectangle.stack.fill",
                                 title: "Playlist",

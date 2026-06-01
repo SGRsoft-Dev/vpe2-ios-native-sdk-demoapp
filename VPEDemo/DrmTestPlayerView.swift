@@ -1,18 +1,30 @@
 import SwiftUI
 import VPEPlayer
 
-/// 원클릭 멀티 DRM 데모.
-/// `https://vpe.sgrsoft.com/api/drmTest` 에서 DRM 옵션 JSON을 받아 그대로 재생한다.
+/// DRM 재생 데모 (NCP Multi-DRM / PallyCon 공용).
+/// 원격 API에서 DRM 옵션 JSON을 받아 그대로 `VpePlayer` 에 주입한다.
+/// iOS(AVFoundation)는 키 시스템 중 **FairPlay(HLS)** 경로만 사용한다.
 ///
-/// 응답에는 Widevine(`com.widevine.alpha`) · PlayReady(`com.microsoft.playready`) ·
-/// FairPlay(`com.apple.fps`) 세 키 시스템이 모두 들어 있으며, 각 키 시스템의 `src`,
-/// `licenseUri`/`certificateUri` 와 NCP 인증 헤더(`x-ncp-*`, `x-drm-token`)가 포함된다.
-/// iOS(AVFoundation)는 이 중 **FairPlay(HLS)** 경로만 사용한다.
-///
-/// ⚠️ FairPlay Streaming은 보안 칩 의존으로 **실기기에서만 복호화**된다(시뮬레이터 재생 불가).
+/// ⚠️ FairPlay Streaming은 보안 칩 의존으로 **실기기에서만** 복호화된다(시뮬레이터 재생 불가).
 struct DrmTestPlayerView: View {
-    private let endpoint = "https://vpe.sgrsoft.com/api/drmTest"
+    let endpoint: String
+    let navTitle: String
+    let provider: String     // "NCP" | "PallyCon"
+    let authNote: String
+    let extraNote: String?
     private let accessKey = "44fcf7432b280107d7d18148ac24dd99"
+
+    init(endpoint: String = "https://vpe.sgrsoft.com/api/drmTest",
+         navTitle: String = "원클릭 멀티 DRM",
+         provider: String = "NCP",
+         authNote: String = "NCP API Gateway 인증 헤더(x-ncp-iam-access-key, x-ncp-apigw-signature-v2, x-drm-token)를 cert/license 요청에 그대로 전달합니다.",
+         extraNote: String? = nil) {
+        self.endpoint = endpoint
+        self.navTitle = navTitle
+        self.provider = provider
+        self.authNote = authNote
+        self.extraNote = extraNote
+    }
 
     @State private var state: LoadState = .loading
     @State private var systems: [String] = []
@@ -37,6 +49,7 @@ struct DrmTestPlayerView: View {
                         .frame(maxWidth: .infinity)
                         .clipShape(RoundedRectangle(cornerRadius: 14, style: .continuous))
                     drmInfoCard(json: json)
+                    if let extra = extraNote { mockNoteCard(extra) }
                     simulatorNoteCard
                 case .failed(let message):
                     errorCard(message)
@@ -45,13 +58,13 @@ struct DrmTestPlayerView: View {
             .padding(16)
         }
         .background(DemoTheme.appBackground.ignoresSafeArea())
-        .navigationTitle("원클릭 멀티 DRM")
+        .navigationTitle(navTitle)
         .navigationBarTitleDisplayMode(.inline)
         .task { await load() }
     }
 
     private var loadingCard: some View {
-        DemoCard(icon: "lock.shield", title: "Multi-DRM") {
+        DemoCard(icon: "lock.shield", title: "\(provider) DRM") {
             HStack(spacing: 10) {
                 ProgressView()
                 Text("DRM 옵션 수신 중…")
@@ -63,7 +76,7 @@ struct DrmTestPlayerView: View {
     }
 
     private func drmInfoCard(json: String) -> some View {
-        DemoCard(icon: "lock.shield.fill", title: "DRM 구성") {
+        DemoCard(icon: "lock.shield.fill", title: "DRM 구성 · \(provider)") {
             VStack(alignment: .leading, spacing: 8) {
                 infoRow("Key 시스템", systems.isEmpty ? "-" : systems.joined(separator: ", "))
                 infoRow("재생 경로", "FairPlay (HLS) · iOS")
@@ -75,10 +88,19 @@ struct DrmTestPlayerView: View {
                 Text("인증")
                     .font(.system(size: 12, weight: .semibold))
                     .foregroundStyle(DemoTheme.textSecondary)
-                Text("NCP API Gateway 인증 헤더(x-ncp-iam-access-key, x-ncp-apigw-signature-v2, x-drm-token)를 cert/license 요청에 그대로 전달합니다.")
+                Text(authNote)
                     .font(.system(size: 12))
                     .foregroundStyle(DemoTheme.textTertiary)
             }
+        }
+    }
+
+    private func mockNoteCard(_ text: String) -> some View {
+        DemoCard(icon: "info.circle.fill", title: "참고") {
+            Text(text)
+                .font(.system(size: 12))
+                .foregroundStyle(DemoTheme.textSecondary)
+                .frame(maxWidth: .infinity, alignment: .leading)
         }
     }
 
@@ -134,7 +156,7 @@ struct DrmTestPlayerView: View {
         do {
             var req = URLRequest(url: url)
             req.timeoutInterval = 15
-            req.cachePolicy = .reloadIgnoringLocalCacheData   // NCP 서명은 매 요청 갱신 → 항상 최신 수신
+            req.cachePolicy = .reloadIgnoringLocalCacheData   // 서명/토큰은 매 요청 갱신 → 항상 최신 수신
             let (data, response) = try await URLSession.shared.data(for: req)
             guard let http = response as? HTTPURLResponse, (200..<300).contains(http.statusCode) else {
                 state = .failed("서버 응답 오류")
