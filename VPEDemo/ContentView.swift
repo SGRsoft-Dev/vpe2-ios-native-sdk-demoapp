@@ -99,6 +99,12 @@ private struct HomeContent: View {
                                 subtitle: "랜덤 이동 / 고정 위치 워터마크 (web 옵션)",
                                 destination: { WatermarkPlayerView() }
                             )
+                            MenuRow(
+                                icon: "slider.horizontal.below.rectangle",
+                                title: "메서드 제어",
+                                subtitle: "컨트롤러 직접 보유 · 외부 버튼으로 SDK 메서드 호출",
+                                destination: { ImperativeControlView() }
+                            )
                         }
                     }
                 }
