@@ -93,6 +93,12 @@ private struct HomeContent: View {
                                 subtitle: "잠금화면/제어센터 미니플레이어 · 원격 명령 연동",
                                 destination: { NowPlayingView() }
                             )
+                            MenuRow(
+                                icon: "drop.fill",
+                                title: "워터마크",
+                                subtitle: "랜덤 이동 / 고정 위치 워터마크 (web 옵션)",
+                                destination: { WatermarkPlayerView() }
+                            )
                         }
                     }
                 }
@@ -106,7 +112,7 @@ private struct HomeContent: View {
 
     private var header: some View {
         VStack(alignment: .leading, spacing: 6) {
-            Text("VPE PLAYER SDK")
+            Text("Video Player Enhancement V2")
                 .font(.system(size: 11, weight: .semibold))
                 .tracking(0.8)
                 .foregroundStyle(DemoTheme.textTertiary)
