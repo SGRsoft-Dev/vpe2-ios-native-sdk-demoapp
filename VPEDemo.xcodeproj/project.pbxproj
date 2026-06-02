@@ -425,7 +425,7 @@
 			repositoryURL = "https://github.com/SGRsoft-Dev/vpe2-ios-native-sdk.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.5;
+				minimumVersion = 1.0.6;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
