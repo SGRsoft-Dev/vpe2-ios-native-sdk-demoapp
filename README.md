@@ -5,7 +5,7 @@
 
 - SDK(바이너리 배포): `https://github.com/SGRsoft-Dev/vpe2-ios-native-sdk.git`
 - 번들 ID: `com.sgrsoft.vpe.native.ios`
-- SDK 버전: **1.0.4**
+- SDK 버전: **1.0.6**
 
 ## 요구 사항
 
@@ -13,10 +13,10 @@
 
 ## SDK 참조 방식 (바이너리 기본 / 로컬 선택)
 
-기본은 **공개 GitHub의 바이너리 Swift Package(XCFramework, 1.0.4)** 참조 → 데모앱 단독 clone만으로 빌드됩니다.
+기본은 **공개 GitHub의 바이너리 Swift Package(XCFramework, 1.0.6)** 참조 → 데모앱 단독 clone만으로 빌드됩니다.
 
 ```swift
-.package(url: "https://github.com/SGRsoft-Dev/vpe2-ios-native-sdk.git", from: "1.0.4")
+.package(url: "https://github.com/SGRsoft-Dev/vpe2-ios-native-sdk.git", from: "1.0.6")
 ```
 
 SDK 소스를 함께 수정하며 개발하려면 로컬 `../sdk` 로 전환할 수 있습니다:
@@ -43,7 +43,7 @@ open VPEDemo.xcodeproj
 |---|---|---|
 | 기본 플레이어 구성 | `BasicPlayerDictView` | 옵션을 **Swift 딕셔너리**로 직접 구성 |
 | 기본 플레이어 구성 (JSON) | `BasicPlayerView` | 옵션 **JSON 문자열**(web 스키마) + Configuration 카드 |
-| 원격 API 데모 | `RemoteApiPlayerView` | `playurl` API에서 옵션 JSON 수신 → 재생 |
+| 원격 API 데모 | `RemoteApiPlayerView` | `playUrl` API에서 옵션 JSON 수신 → 재생 |
 | 원클릭 멀티 DRM | `DrmTestPlayerView` | `drmTest` API → NCP FairPlay(HLS) DRM (실기기) |
 | PallyCon DRM | `DrmTestPlayerView` | `drmTestPallycon` API → PallyCon FairPlay (실기기) |
 | OTT 기능 | `OTTPlayerView` | 인트로/오프닝/엔딩 스킵 + 연령등급/콘텐츠 경고 고지 + 커스텀 레이아웃 |

@@ -17,8 +17,8 @@ struct PictureInPictureView: View {
             "objectFit": "contain",
             "allowsPictureInPicture": true,
             "staysActiveInBackground": true,
-            "enableNowPlayingPlaybackState": true,
             "autoPause": false,
+            "enableNowPlayingPlaybackState": true,
             "playlist": [
                 [
                     "file": streamURL,

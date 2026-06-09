@@ -2,10 +2,10 @@ import SwiftUI
 import VPEPlayer
 
 /// "원격 API 데모" — 옵션 JSON을 원격 API에서 받아 `VpePlayer`로 재생하는 예시.
-/// `https://vpe.sgrsoft.com/api/playurl?v=1` 응답(옵션 JSON)을 그대로 SDK에 전달.
+/// `https://vpe.sgrsoft.com/api/playUrl?v=1` 응답(옵션 JSON)을 그대로 SDK에 전달.
 struct RemoteApiPlayerView: View {
 
-    private static let apiURL = URL(string: "https://vpe.sgrsoft.com/api/playurl?v=1")!
+    private static let apiURL = URL(string: "https://vpe.sgrsoft.com/api/playUrl?v=1")!
     private static let accessKey = "44fcf7432b280107d7d18148ac24dd99"
 
     @State private var optionsJSON: String?

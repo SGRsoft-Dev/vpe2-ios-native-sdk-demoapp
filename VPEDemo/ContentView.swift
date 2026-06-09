@@ -40,7 +40,7 @@ private struct HomeContent: View {
                             MenuRow(
                                 icon: "network",
                                 title: "원격 API 데모",
-                                subtitle: "playurl API에서 옵션 JSON 수신 → 재생",
+                                subtitle: "playUrl API에서 옵션 JSON 수신 → 재생",
                                 destination: { RemoteApiPlayerView() }
                             )
                             MenuRow(
